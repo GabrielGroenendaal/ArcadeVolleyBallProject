@@ -42,7 +42,6 @@ public class Volleyball : MonoBehaviour
     {
         thereIsNoBall = true;
         playGame = false;
-        ResetGame();
     }
 
     // Update is called once per frame
@@ -112,6 +111,7 @@ public class Volleyball : MonoBehaviour
         }
         UpdateScore();
         DestroyAll();
+        ResetGame();
         thereIsNoBall = true;
         timer = 1.5f;
         GameObject.Find("Game Controller").GetComponent<GameController>().beep.Play();
@@ -125,19 +125,19 @@ public class Volleyball : MonoBehaviour
     }
     
     // Starts up the game with fresh prefabs
-    void ResetGame()
+    public void ResetGame()
     {
         player1temp = Instantiate(player1);
         player2temp = Instantiate(player2);
     }
     
     // Destroys all the Prefabs
-    void DestroyAll()
+    public void DestroyAll()
     {
         Destroy(player1temp);
         Destroy(player2temp);
         Destroy(balltemp);
-        ResetGame();
+        thereIsNoBall = true;
     }
     
 }

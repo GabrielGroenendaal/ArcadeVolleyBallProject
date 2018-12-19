@@ -52,6 +52,8 @@ public class GameController : MonoBehaviour
             {
                 beep.Play();
                 gameState = "game";
+                CleanMap();
+                game.ResetGame();
             }
 
         }
@@ -66,11 +68,13 @@ public class GameController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 beep.Play();
+                CleanMap();
                 Reset();
+                game.playGame = false;
                 gameState = "menu";
             }
             
-            else if (game.p1score == 15)
+            else if (game.p1score == 5)
             {
                 loserScore = game.p2score;
                 winnerScore = game.p1score;
@@ -79,7 +83,7 @@ public class GameController : MonoBehaviour
                 gameState = "GameOver";
             }
             
-            else if (game.p2score == 15)
+            else if (game.p2score == 5)
             {
                 loserScore = game.p1score;
                 winnerScore = game.p2score;
@@ -98,6 +102,7 @@ public class GameController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 beep.Play();
+                CleanMap();
                 Reset();
                 gameState = "menu";
             }
@@ -110,7 +115,15 @@ public class GameController : MonoBehaviour
         winnerName = "";
         winnerScore = 0;
         loserScore = 0;
+        game.p1score = 0;
+        game.p2score = 0;
         Player1Score.text = "0";
         Player2Score.text = "0";
+        game.ResetGame();
+    }
+
+    void CleanMap()
+    {
+        game.DestroyAll();
     }
 }

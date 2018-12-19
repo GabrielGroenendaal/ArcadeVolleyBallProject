@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 470938297210431498}
   - component: {fileID: 4267903815348471983}
   - component: {fileID: 3427617631802915520}
+  - component: {fileID: 5642787767277589806}
   m_Layer: 0
   m_Name: Player 1A
   m_TagString: TeamA
@@ -95,21 +96,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b239d82e09c74684aa803d5d9b36b03d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  jump: 6
   collisionBeep: {fileID: 470938297210431498}
   nameAxis: WAD
   _jumpAxis: JumpW
   jumpAxis: 0
-  inputRight: 100
-  inputLeft: 97
-  inputJump: 119
+  neutral: {fileID: 21300000, guid: 85262ea294abbc74f95f33c91c501e00, type: 3}
+  jumpjump: {fileID: 21300000, guid: ba0a417d4ac6404479aa0b10b86f1b4a, type: 3}
   body: {fileID: 3427617631802915520}
-  maxX: -3.75
-  minX: -7.4
   minY: -3.9
   active: 0
-  cannotMove: 0
 --- !u!82 &470938297210431498
 AudioSource:
   m_ObjectHideFlags: 0
@@ -213,7 +208,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6233087404638719351}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -253,3 +248,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &5642787767277589806
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6233087404638719351}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.095

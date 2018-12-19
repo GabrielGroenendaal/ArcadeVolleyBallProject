@@ -8,12 +8,15 @@ public class Ball : MonoBehaviour
 {
     public AudioSource beep;
     public Rigidbody2D ballbody;
-    private float ballSpeed = 7.0f;
+    private float ballSpeed = 8.0f;
 
     // Stores how many repeated bounces the ball has one side
     public int sameSideBounces;
     // Stores who the last person who bounced it is. Every time this changes, sameSideBounces changes
     public string lastBounce;
+
+
+    private Vector2 LastVelocity;
     
     // Start is called before the first frame update
     void Start()
@@ -36,6 +39,8 @@ public class Ball : MonoBehaviour
 
     private void FixedUpdate()
     {
+        LastVelocity = ballbody.velocity;
+       
         if (isStill()) return;
         ballSpeed += .001f;
         ballbody.velocity = ballbody.velocity.normalized *  ballSpeed;
@@ -44,10 +49,13 @@ public class Ball : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D other)
     {
+        Vector2 surfaceNormal = other.contacts[0].normal;
+        ballbody.velocity = Vector2.Reflect(LastVelocity, surfaceNormal);
+        
         // If the ball hits the floor or the pole
         if (other.gameObject.CompareTag("Floor"))
         {
-            if (lastBounce == "TeamA") // If it's Team A, the win goes to Team B
+            if (transform.position.x < 0) // If it's Team A, the win goes to Team B
             {
                 GameOver(false);
             }
@@ -66,7 +74,7 @@ public class Ball : MonoBehaviour
             if (lastBounce == "TeamA")
             {
                 sameSideBounces++;
-                if (sameSideBounces >= 3) // Checks number of bounces
+                if (sameSideBounces > 3) // Checks number of bounces
                 {
                     GameOver(false); // If 3 bounces, gives win to TeamA (Left)
                 }
@@ -86,7 +94,7 @@ public class Ball : MonoBehaviour
             if (lastBounce == "TeamB") 
             {
                 sameSideBounces++; 
-                if (sameSideBounces >= 3)  // Checks number of bounces
+                if (sameSideBounces > 3)  // Checks number of bounces
                 {
                     GameOver(true); // If 3 bounces, gives win to TeamA (Left)
                 }

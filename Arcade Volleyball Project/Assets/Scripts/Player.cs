@@ -18,6 +18,10 @@ public class Player : MonoBehaviour
     public string _jumpAxis;
     public float jumpAxis;
 
+    public Sprite neutral;
+    public Sprite jumpjump;
+    private SpriteRenderer activeSprite;
+
     // Used for movement
     public Rigidbody2D body;
     
@@ -33,6 +37,7 @@ public class Player : MonoBehaviour
     {
         active = false;
         body = GetComponent<Rigidbody2D>();
+        activeSprite = GetComponent<SpriteRenderer>();
         jumping = false;
     }
 
@@ -53,6 +58,16 @@ public class Player : MonoBehaviour
             Move(Input.GetAxis(nameAxis));
             if (Input.GetButtonDown(_jumpAxis)) Jump();
         }
+        FixRotation();
+
+        if (transform.position.y >= minY)
+        {
+            activeSprite.sprite = jumpjump;
+        }
+        else
+        {
+            activeSprite.sprite = neutral;
+        }
     }
     
     private void FixedUpdate () 
@@ -67,10 +82,15 @@ public class Player : MonoBehaviour
                 jumping = false;
             }
 		
-            body.velocity = new Vector2(_move * 7.0f, jumpAxis);
+            body.velocity = new Vector2(_move * 9.0f, jumpAxis);
         }
     }
 
+    void FixRotation()
+    {
+        transform.rotation = new Quaternion(0,0,0,0);
+    }
+    
     public void Move(float input)
     {
         _move = Mathf.Clamp(input,-1,1);
